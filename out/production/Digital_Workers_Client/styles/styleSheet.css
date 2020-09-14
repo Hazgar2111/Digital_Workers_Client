@@ -1,0 +1,133 @@
+.label1
+{
+    -fx-background-color:  #4B0082;
+    -fx-background-radius: 20;
+}
+
+.label2
+{
+    -fx-background-color:  #F0FFFF;
+    -fx-background-radius: 10;
+    -fx-border-color: #696969;
+    -fx-border-radius: 20;
+}
+
+.buttonPoisk
+{
+    -fx-background-color:   #4B0082;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+.buttonPoisk:hover
+{
+    -fx-background-color:   #C3AAD5;
+    -fx-border-color: #696969;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}
+
+.buttonPass
+{
+
+    -fx-background-color:   #F0FFFF;
+    -fx-background-radius: 20;
+}
+.buttonPass:hover
+{
+    -fx-background-color:   #C3AAD5;
+}
+
+.buttonLogin{
+    -fx-background-radius: 0;
+    -fx-background-color:  #F0FFFF;
+
+}
+.buttonLogin:hover {
+    -fx-border-color:  #4B0082;
+    -fx-background-radius: 0 ;
+}
+
+.button1{
+    -fx-background-radius: 0;
+    -fx-border-color:  #4B0082;
+}
+.button1:hover {
+    -fx-background-color:  #f1f3ce;
+}
+
+
+.button2{
+    -fx-background-radius: 0;
+    -fx-background-color:   #4B0082;
+}
+
+.button2:hover {
+    -fx-border-color: #fafafa;
+    -fx-background-radius: 0 ;
+
+}
+.buttonChangePass{
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color:  #fafafa;
+    -fx-background-color:   #4B0082;
+}
+
+.buttonChangePass:hover {
+    -fx-border-color: #fafafa;
+    -fx-background-radius: 5 ;
+    -fx-background-color:   #320056;
+
+}
+.AP{
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #696969;
+    -fx-background-color:  #F0FFFF;
+}
+
+.table-view .column-header,
+.table-view .column-header-background ,filer{
+    -fx-cell-size: 20;
+    -fx-background-color: #F0FFFF;
+    -fx-border-color:   #4B0082;
+    -fx-text-fill: white;
+
+    -fx-table-cell-border-color: transparent;
+   // -fx-color-label-visible:#F0FFFF ;
+}
+.table-view .column{
+    -fx-background-color:   #4B0082;
+    -fx-border-width: 2;
+    -fx-border-color:   #4B0082;
+
+    -fx-text-fill: white;
+}
+
+.table-view
+{
+    -fx-border-color:   #4B0082;
+    -fx-border-width: 5;
+    -fx-background-color:   #F0FFFF;
+}
+.table-view {
+    -fx-background-color:   #F0FFFF;
+    -fx-border-width: 2;
+    -fx-border-color:   #4B0082;
+}
+
+.table-view .filler
+{
+    -fx-background-color:   #4B0082;
+    -fx-border-insets: 10;
+}
+.buttonHide
+{
+    -fx-background-color: #4B0082;
+}
+.buttonHide:hover
+{
+    -fx-background-color: #4B0082;
+    -fx-border-color: #fafafa;
+}

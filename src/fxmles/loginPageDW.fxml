@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="487.0" prefWidth="763.0" style="-fx-background-color: #4B0082;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginPageController">
+   <children>
+      <AnchorPane layoutX="398.0" layoutY="77.0" prefHeight="334.0" prefWidth="307.0" style="-fx-background-color: #F0FFFF;">
+         <children>
+            <Label layoutX="121.0" layoutY="14.0" text="Войти">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="signin_button" layoutX="36.0" layoutY="229.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="236.0" style="-fx-background-color: #4B0082;" styleClass="button1" stylesheets="@../styles/styleSheet.css" text="Авторизация" textFill="AZURE">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <HBox alignment="CENTER_LEFT" layoutX="36.0" layoutY="151.0" prefHeight="32.0" prefWidth="236.0" style="-fx-border-color: #000000;">
+               <children>
+                  <PasswordField fx:id="pass_field" prefHeight="30.0" prefWidth="198.0" promptText="Пароль" style="-fx-background-color: #F0FFFF;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </PasswordField>
+                  <Button fx:id="showPassBtn" mnemonicParsing="false" prefHeight="24.0" prefWidth="36.0" style="-fx-background-color: #F0FFFF;" styleClass="buttonLogin" stylesheets="@../styles/styleSheet.css">
+                     <graphic>
+
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="EYE" size="15" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox layoutX="36.0" layoutY="76.0" prefHeight="32.0" prefWidth="236.0" style="-fx-border-color: #fafafa;">
+               <children>
+                  <TextField fx:id="login_field" prefHeight="30.0" prefWidth="236.0" promptText="Логин" style="-fx-background-color: #F0FFFF; -fx-border-color: #000000;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <HBox layoutX="42.0" layoutY="77.0" prefHeight="84.0" prefWidth="301.0" spacing="10.0" style="-fx-background-color: #320056;">
+         <children>
+            <Label prefHeight="62.0" prefWidth="221.0" text="Jupiter Jet" textFill="WHITE">
+               <font>
+                  <Font name="Cambria" size="48.0" />
+               </font>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+            </Label>
+            <FontAwesomeIcon fill="WHITE" glyphName="PLANE" size="50">
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </FontAwesomeIcon>
+
+         </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </HBox>
+      <Label layoutX="61.0" layoutY="163.0" prefHeight="51.0" prefWidth="282.0" text="Digital Workers" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="39.0" />
+         </font>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </Label>
+   </children>
+</AnchorPane>

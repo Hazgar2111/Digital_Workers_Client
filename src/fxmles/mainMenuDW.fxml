@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="756.0" prefWidth="1565.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainMenuController">
+   <children>
+      <BorderPane layoutX="301.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1264.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="301.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <AnchorPane prefHeight="75.0" prefWidth="1264.0" style="-fx-background-color: #F0FFFF;" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane layoutX="1001.0" layoutY="18.0" prefHeight="40.0" prefWidth="221.0" styleClass="label1" stylesheets="@../styles/styleSheet.css" AnchorPane.rightAnchor="42.0">
+                     <children>
+                        <Button fx:id="changePassBtn" layoutX="184.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="27.0" prefWidth="30.0" styleClass="buttonPass" stylesheets="@../styles/styleSheet.css" textFill="WHITE">
+                           <graphic>
+
+                           </graphic>
+                           <graphic>
+                              <FontAwesomeIcon glyphName="KEY" size="15" />
+                           </graphic>
+                        </Button>
+                        <Label fx:id="lblUserProfile" layoutX="9.0" layoutY="7.0" prefHeight="27.0" prefWidth="175.0" styleClass="label1" stylesheets="@../styles/styleSheet.css" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets left="4.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Pane>
+                  <StackPane layoutX="14.0" layoutY="12.0" prefHeight="58.0" prefWidth="976.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="274.0">
+                     <children>
+                        <AnchorPane fx:id="prikazyAp" prefHeight="52.0" prefWidth="880.0" style="-fx-background-color: #F0FFFF;">
+                           <children>
+                              <Label layoutX="14.0" layoutY="3.0" text="Журнал Приказов">
+                                 <font>
+                                    <Font name="Arial" size="48.0" />
+                                 </font>
+                              </Label>
+                              <Pane layoutX="632.0" layoutY="9.0" prefHeight="40.0" prefWidth="317.0" styleClass="label2" stylesheets="@../styles/styleSheet.css" AnchorPane.rightAnchor="27.0">
+                                 <children>
+                                    <Button fx:id="btnPoiskPrikazy" layoutX="272.0" layoutY="1.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="44.0" styleClass="buttonPoisk" stylesheets="@../styles/styleSheet.css">
+                                       <graphic>
+
+                                       </graphic></Button>
+                                    <TextField fx:id="inputPrikazy" layoutX="14.0" layoutY="5.0" prefHeight="30.0" prefWidth="252.0" promptText="Введите фамилию сотрудника" style="-fx-background-color: #F0FFFF;" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="personalDelaAp" prefHeight="52.0" prefWidth="880.0" style="-fx-background-color: #F0FFFF;">
+                           <children>
+                              <Label layoutX="14.0" layoutY="2.0" text="Личные дела сотрудников">
+                                 <font>
+                                    <Font name="Arial" size="48.0" />
+                                 </font>
+                              </Label>
+                              <Pane layoutX="645.0" layoutY="9.0" prefHeight="40.0" prefWidth="317.0" styleClass="label2" stylesheets="@../styles/styleSheet.css" AnchorPane.rightAnchor="27.0">
+                                 <children>
+                                    <TextField fx:id="inputPoiskPersonal" layoutX="14.0" layoutY="5.0" prefHeight="30.0" prefWidth="252.0" promptText="Введите фамилию сотрудника" style="-fx-background-color: #F0FFFF;" />
+                                    <Button fx:id="buttonInputPoiskPersonal" layoutX="272.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="38.0" prefWidth="45.0" styleClass="buttonPoisk" stylesheets="@../styles/styleSheet.css">
+                                       <graphic>
+
+                                       </graphic>
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" size="20" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Pane>
+                              <Label fx:id="errorLblPoisk" layoutX="654.0" layoutY="49.0" textFill="RED" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </StackPane>
+               </children></AnchorPane>
+         </top>
+         <center>
+            <StackPane alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="1264.0" style="-fx-background-color: #F0FFFF;" BorderPane.alignment="TOP_LEFT">
+               <rotationAxis>
+                  <Point3D />
+               </rotationAxis>
+               <children>
+                  <AnchorPane fx:id="prikazyAp1" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F0FFFF;" />
+                  <AnchorPane fx:id="personalDelaAp1" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="imageProfile" fitHeight="150.0" fitWidth="200.0" layoutX="29.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="192.0" layoutY="78.0" prefHeight="27.0" prefWidth="59.0" text="Имя:" AnchorPane.rightAnchor="1013.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="191.0" layoutY="111.0" prefHeight="27.0" prefWidth="89.0" text="Отчество:" AnchorPane.rightAnchor="984.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="192.0" layoutY="46.0" prefHeight="27.0" prefWidth="87.0" text="Фамилия:" AnchorPane.rightAnchor="985.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Line endX="-69.0" endY="108.0" layoutX="549.0" layoutY="26.0" startX="-69.0" startY="17.0" AnchorPane.rightAnchor="783.5" />
+                        <Label fx:id="PersonalSurname" layoutX="292.0" layoutY="39.0" prefHeight="35.0" prefWidth="188.0" AnchorPane.rightAnchor="784.0">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="PersonalName" layoutX="292.0" layoutY="74.0" prefHeight="35.0" prefWidth="188.0" AnchorPane.rightAnchor="784.0">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="PersonalMiddleName" layoutX="294.0" layoutY="107.0" prefHeight="35.0" prefWidth="184.0" AnchorPane.rightAnchor="786.0">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="491.0" layoutY="41.0" prefHeight="27.0" prefWidth="158.0" text="Дата приёма:" AnchorPane.rightAnchor="615.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="491.0" layoutY="76.0" prefHeight="27.0" prefWidth="157.0" text="Должность:" AnchorPane.rightAnchor="615.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="492.0" layoutY="111.0" prefHeight="27.0" prefWidth="170.0" text="Трудовой договор:" AnchorPane.rightAnchor="602.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="PersonalDate" layoutX="661.0" layoutY="37.0" prefHeight="35.0" prefWidth="188.0" AnchorPane.rightAnchor="415.0">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="PersonalDolzhnost" layoutX="661.0" layoutY="74.0" prefHeight="35.0" prefWidth="188.0" AnchorPane.rightAnchor="415.0">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="PersonalTrudDog" layoutX="661.0" layoutY="107.0" prefHeight="35.0" prefWidth="188.0" AnchorPane.rightAnchor="415.0">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Label>
+                        <Line endX="-69.0" endY="108.0" layoutX="918.0" layoutY="26.0" startX="-69.0" startY="17.0" AnchorPane.rightAnchor="414.5" />
+                        <Label layoutX="895.0" layoutY="59.0" prefHeight="27.0" prefWidth="158.0" text="Номер телефона:" AnchorPane.rightAnchor="211.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="895.0" layoutY="93.0" prefHeight="27.0" prefWidth="141.0" text="Email@:" AnchorPane.rightAnchor="228.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="PersonalNumberPhone" alignment="CENTER_RIGHT" layoutX="1062.0" layoutY="55.0" prefHeight="35.0" prefWidth="155.0" AnchorPane.rightAnchor="47.0">
+                           <font>
+                              <Font size="23.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="PersonalEmail" alignment="CENTER_RIGHT" layoutX="986.0" layoutY="89.0" prefHeight="35.0" prefWidth="229.0" AnchorPane.rightAnchor="49.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <AnchorPane layoutX="29.0" layoutY="191.0" prefHeight="469.0" prefWidth="1194.0" styleClass="AP" stylesheets="@../styles/styleSheet.css" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="41.0" AnchorPane.topAnchor="191.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" layoutX="18.0" layoutY="14.0" prefHeight="55.0" prefWidth="1174.0" spacing="20.0" AnchorPane.leftAnchor="10.0">
+                                 <children>
+
+                                    <Label text="Папка докуметов:">
+                                       <font>
+                                          <Font name="Arial" size="48.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="personalPapkaLabel" prefHeight="55.0" prefWidth="629.0">
+                                       <font>
+                                          <Font name="Arial" size="48.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="tablePersonal" editable="true" fixedCellSize="20.0" layoutX="12.0" layoutY="122.0" prefHeight="314.0" prefWidth="793.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="121.0">
+                                <columns>
+                                  <TableColumn fx:id="numberCol" maxWidth="700.0" minWidth="0.0" prefWidth="10.0" text="№" />
+                                    <TableColumn fx:id="typeCol" maxWidth="2500.0" minWidth="0.0" prefWidth="468.0" text="Тип приказа" />
+                                    <TableColumn fx:id="nameCol" minWidth="0.0" prefWidth="439.0" text="Наименование приказа" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <Button fx:id="personalBtnEdit" layoutX="18.0" layoutY="69.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="43.0" prefWidth="48.0" styleClass="buttonPoisk" stylesheets="@../styles/styleSheet.css" AnchorPane.leftAnchor="10.0">
+                                 <graphic>
+                                    <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="20" />
+                                 </graphic></Button>
+                              <Button fx:id="personalBtnAdd" layoutX="110.0" layoutY="69.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="43.0" prefWidth="48.0" styleClass="buttonPoisk" stylesheets="@../styles/styleSheet.css">
+                                 <graphic>
+                                    <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="20" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="personalBtnDelete" layoutX="207.0" layoutY="69.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="43.0" prefWidth="48.0" styleClass="buttonPoisk" stylesheets="@../styles/styleSheet.css">
+                                 <graphic>
+                                    <FontAwesomeIcon fill="WHITE" glyphName="TRASH" size="20" />
+                                 </graphic>
+                              </Button>
+                              <StackPane layoutX="834.0" layoutY="108.0" prefHeight="338.0" prefWidth="349.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="833.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="107.0">
+                                 <children>
+                                    <AnchorPane fx:id="PersonalAPedit" prefHeight="347.0" prefWidth="349.0" style="-fx-background-color: #F0FFFF;">
+                                       <children>
+                                          <Pane layoutX="15.0" layoutY="119.0" prefHeight="40.0" prefWidth="320.0" styleClass="label2" stylesheets="@../styles/styleSheet.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <children>
+                                                <ComboBox fx:id="editComboBox" layoutX="9.0" layoutY="8.0" prefHeight="25.0" prefWidth="298.0" style="-fx-background-color: #F0FFFF;" />
+                                             </children>
+                                          </Pane>
+                                          <Pane layoutX="15.0" layoutY="188.0" prefHeight="40.0" prefWidth="320.0" styleClass="label2" stylesheets="@../styles/styleSheet.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <children>
+                                                <TextField fx:id="inputEditFileName" layoutX="14.0" layoutY="5.0" prefHeight="30.0" prefWidth="291.0" style="-fx-background-color: #F0FFFF;">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </Pane>
+                                          <Button fx:id="buttonEditSave" layoutX="174.0" layoutY="284.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="38.0" prefWidth="162.0" styleClass="buttonPoisk" stylesheets="@../styles/styleSheet.css" AnchorPane.rightAnchor="11.0">
+                                             <graphic>
+                                                <FontAwesomeIcon fill="WHITE" glyphName="SAVE" size="20" />
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="buttonEditFile" layoutX="14.0" layoutY="284.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="38.0" prefWidth="155.0" styleClass="buttonPoisk" stylesheets="@../styles/styleSheet.css" AnchorPane.leftAnchor="14.0">
+                                             <graphic>
+                                                <FontAwesomeIcon fill="WHITE" glyphName="PENCIL" size="20" />
+                                             </graphic>
+                                          </Button>
+                                          <Pane layoutX="15.0" layoutY="14.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="320.0" styleClass="label1" stylesheets="@../styles/styleSheet.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0">
+                                             <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                             </cursor>
+                                             <children>
+                                                <Button fx:id="editBtnHide" alignment="CENTER" layoutX="274.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="18.0" prefWidth="9.0" styleClass="buttonHide" stylesheets="@../styles/styleSheet.css">
+                                                   <graphic>
+                                                      <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="20" />
+                                                   </graphic>
+                                                </Button>
+                                                <Label fx:id="lblUserProfile1" layoutX="14.0" layoutY="7.0" prefHeight="27.0" prefWidth="244.0" styleClass="label1" stylesheets="@../styles/styleSheet.css" text="Панель редактирования" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </Pane>
+                                          <Label layoutX="31.0" layoutY="102.0" text="Тип документа" />
+                                          <Label layoutX="31.0" layoutY="172.0" text="Наименование документа" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane fx:id="PersonalAPAdd" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F0FFFF;">
+                                       <children>
+                                          <Pane layoutX="18.0" layoutY="101.0" prefHeight="43.0" prefWidth="320.0" styleClass="label2" stylesheets="@../styles/styleSheet.css">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <children>
+                                                <ComboBox fx:id="addComboBx" layoutX="17.0" layoutY="8.0" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: #F0FFFF;" />
+                                                <Button fx:id="fileChoserBtn" layoutX="207.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="43.0" prefWidth="113.0" styleClass="buttonPoisk" stylesheets="@../styles/styleSheet.css" text="Выбрать файл" textFill="WHITE" />
+                                             </children>
+                                          </Pane>
+                                          <Button fx:id="btnAddFile" layoutX="18.0" layoutY="192.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="43.0" prefWidth="320.0" styleClass="buttonPoisk" stylesheets="@../styles/styleSheet.css" text="Сохранить файл" textFill="WHITE">
+                                             <graphic>
+                                                <FontAwesomeIcon fill="WHITE" glyphName="CHECK" size="20" />
+                                             </graphic>
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Button>
+                                          <Label layoutX="32.0" layoutY="84.0" text="Тип файла:" />
+                                          <Pane layoutX="18.0" layoutY="14.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="320.0" styleClass="label1" stylesheets="@../styles/styleSheet.css">
+                                             <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                             </cursor>
+                                             <children>
+                                                <Button fx:id="addBtnHide" alignment="CENTER" layoutX="274.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="18.0" prefWidth="9.0" styleClass="buttonHide" stylesheets="@../styles/styleSheet.css">
+                                                   <graphic>
+                                                      <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="20" />
+                                                   </graphic>
+                                                </Button>
+                                                <Label fx:id="lblUserProfile11" layoutX="14.0" layoutY="7.0" prefHeight="27.0" prefWidth="244.0" styleClass="label1" stylesheets="@../styles/styleSheet.css" text="Добавить новый файл" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane fx:id="PersonalAPpustyshka" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F0FFFF;" />
+                                 </children>
+                              </StackPane>
+                           </children></AnchorPane>
+                     </children></AnchorPane>
+               </children>
+            </StackPane>
+         </center>
+      </BorderPane>
+      <VBox layoutY="-1.0" prefHeight="756.0" prefWidth="301.0" style="-fx-background-color: #4B0082;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="223.0" prefWidth="301.0">
+               <children>
+                  <HBox prefHeight="75.0" prefWidth="301.0" spacing="10.0" style="-fx-background-color: #320056;">
+                     <children>
+                        <Label prefHeight="62.0" prefWidth="221.0" text="Jupiter Jet" textFill="WHITE">
+                           <font>
+                              <Font name="Cambria" size="48.0" />
+                           </font>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <FontAwesomeIcon fill="WHITE" glyphName="PLANE" size="50">
+                           <HBox.margin>
+                              <Insets top="20.0" />
+                           </HBox.margin>
+                        </FontAwesomeIcon>
+
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
+            <Button fx:id="btnPersonal" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="43.0" prefWidth="298.0" styleClass="button2" stylesheets="@../styles/styleSheet.css" text="Личные дела" textFill="WHITE">
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="30.0" />
+               </VBox.margin>
+               <graphic>
+
+               </graphic>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="USER" size="20" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnZhurnal" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="43.0" prefWidth="299.0" styleClass="button2" stylesheets="@../styles/styleSheet.css" text="Журнал Приказов" textFill="WHITE">
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <graphic>
+
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="30.0" />
+               </VBox.margin>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="BOOK" size="20" />
+               </graphic>
+            </Button>
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </VBox>
+      <VBox layoutY="596.0" prefHeight="119.0" prefWidth="301.0" style="-fx-background-color: #4B0082;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <children>
+            <Button fx:id="btnSpravka" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="40.0" prefWidth="300.0" styleClass="button2" stylesheets="@../styles/styleSheet.css" text="Справка" textFill="WHITE">
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <graphic>
+
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="30.0" />
+               </VBox.margin>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="QUESTION" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnVyhod" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="41.0" prefWidth="299.0" styleClass="button2" stylesheets="@../styles/styleSheet.css" text="Выход" textFill="WHITE">
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <graphic>
+
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="30.0" />
+               </VBox.margin>
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="20" />
+               </graphic>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
