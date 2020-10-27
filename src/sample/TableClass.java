@@ -4,12 +4,18 @@ import java.io.File;
 
 public class TableClass {
     private int number;
+    private int id;
     private String type;
     private String name;
     private File file;
 
     public String getType() {
         return type;
+    }
+
+
+    public int getId() {
+        return id;
     }
 
     public int getNumber() {
@@ -36,11 +42,16 @@ public class TableClass {
         this.file = file;
     }
 
-    public TableClass(int number, String type, File file, String name) {
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public TableClass(int number, String type, File file, String name, int id) {
         this.number = number;
         this.type = type;
         this.name = name;
         this.file = file;
+        this.id = id;
     }
 
 

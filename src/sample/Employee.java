@@ -131,4 +131,8 @@ public class Employee  implements Serializable {
         this.trud_dogovor = trud_dogovor;
         this.email = email;
     }
+
+
+    public Employee() {
+    }
 }
