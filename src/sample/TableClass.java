@@ -1,6 +1,7 @@
 package sample;
 
 import java.io.File;
+import java.sql.Timestamp;
 
 public class TableClass {
     private int number;
@@ -8,6 +9,8 @@ public class TableClass {
     private String type;
     private String name;
     private File file;
+    private java.sql.Timestamp dateTime;
+    private String desc;
 
     public String getType() {
         return type;
@@ -54,5 +57,26 @@ public class TableClass {
         this.id = id;
     }
 
+    public TableClass(String name, String desc, Timestamp dateTime, int id) {
+        this.name = name;
+        this.desc = desc;
+        this.dateTime = dateTime;
+        this.id = id;
+    }
 
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public Timestamp getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(Timestamp dateTime) {
+        this.dateTime = dateTime;
+    }
 }

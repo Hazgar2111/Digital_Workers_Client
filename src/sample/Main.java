@@ -5,7 +5,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.apache.commons.io.FileUtils;
 import org.w3c.dom.ls.LSOutput;
 
@@ -34,6 +36,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxmles/loginPageDW.fxml"));
         primaryStage.setTitle("Авторизация пользователя");
         primaryStage.setScene(new Scene(root, 763, 487));
+        //primaryStage.initStyle(StageStyle.TRANSPARENT);
+       //primaryStage.initModality(Modality.WINDOW_MODAL);
         primaryStage.show();
     }
 
@@ -47,7 +51,8 @@ public class Main extends Application {
     private static void connect()
     {
         try {
-            socket = new Socket("127.0.0.1", 4444);
+            //213.211.87.191
+            socket = new Socket("192.168.1.8", 4444);
             outStream = new ObjectOutputStream(socket.getOutputStream());
             inStream = new ObjectInputStream(socket.getInputStream());
 
@@ -297,5 +302,24 @@ public class Main extends Application {
         }
     }
 
+
+    public static ArrayList<FileSaver> getFilesKomand(String type)
+    {
+        ArrayList<FileSaver> fileSavers = null;
+        try {
+            Request r = new Request("LIST_FILES_TYPE", null, type);
+            outStream.writeObject(r);
+            Request request = (Request) inStream.readObject();
+
+            if (request != null) {
+                fileSavers = request.getFileSaver();
+            }
+        }
+        catch (IOException | ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        return fileSavers;
+    }
 
 }

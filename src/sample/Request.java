@@ -11,8 +11,7 @@ public class Request implements Serializable {
     private ArrayList<Employee> employees;
     private Employee employee;
     private String name;
-    private ArrayList<File> files;
-    private  ArrayList<FileSaver> fileSaver;
+    private ArrayList<FileSaver> fileSavers;
     private FileSaver fileSaver1;
     private ArrayList<Prikazy> prikazy;
     private AllUserData allUserData;
@@ -23,6 +22,7 @@ public class Request implements Serializable {
     private ArrayList<BackUpFile> backUpFiles;
     private ArrayList<File_to_human> file_to_humen;
     private java.sql.Timestamp date;
+    private String type;
 
 
     public Request() {
@@ -85,6 +85,12 @@ public class Request implements Serializable {
         this.backUpFiles = backUpFiles;
     }
 
+    public Request(String operationType, ArrayList<FileSaver> fileSavers, String type) {
+        this.operationType = operationType;
+        this.fileSavers = fileSavers;
+        this.type = type;
+    }
+
 
 
 
@@ -117,11 +123,7 @@ public class Request implements Serializable {
     }
 
     public ArrayList<FileSaver> getFileSaver() {
-        return fileSaver;
-    }
-
-    public ArrayList<File> getFiles() {
-        return files;
+        return fileSavers;
     }
 
     public String getOperationType() {

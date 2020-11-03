@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -22,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import sample.*;
 
 import javax.imageio.ImageIO;
@@ -36,6 +38,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
 
+
 public class MainMenuController implements Initializable {
 
     @FXML
@@ -43,12 +46,6 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private AnchorPane spravkaAP1;
-
-    @FXML
-    private AnchorPane infoAP;
-
-    @FXML
-    private AnchorPane infoAP1;
 
     @FXML
     private AnchorPane pustyshkaAP1;
@@ -71,12 +68,6 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private AnchorPane prikazyAp;
-
-    @FXML
-    private Button btnPoiskPrikazy;
-
-    @FXML
-    private TextField inputPrikazy;
 
     @FXML
     private AnchorPane prikazyAp1;
@@ -158,9 +149,6 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private AnchorPane PersonalAPedit;
-
-    @FXML
-    private TextField inputEditFileType;
 
     @FXML
     private TextField inputEditFileName;
@@ -252,16 +240,11 @@ public class MainMenuController implements Initializable {
     private Label logFileNameLbl;
 
     @FXML
-    private ComboBox<String> logEmplCmbBox;
-
-    @FXML
     private AnchorPane logAPPustyshDown;
 
     @FXML
     private AnchorPane logAPDown;
 
-    @FXML
-    private Button logChooseBtn;
 
 
     @FXML
@@ -352,11 +335,103 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private Button createSaveFileBtn;
+
     @FXML
     private AnchorPane createApNext;
 
+
     @FXML
-    private AnchorPane createApNextPustyshka;
+    private TableView<TableClass> komandirovkiTable;
+
+    @FXML
+    private TableColumn<?, ?> komandirovkiTableDate;
+
+    @FXML
+    private TableColumn<?, ?> komandirovkiTableName;
+
+    @FXML
+    private TableColumn<?, ?> komandirovkiTableDesc;
+
+    @FXML
+    private TextField komandirovkiInputPoisk;
+
+    @FXML
+    private Button komandirovkiPoiskBtn;
+
+    @FXML
+    private TableView<TableClass> lichSostavTable;
+
+    @FXML
+    private TableColumn<?, ?> lichSostavTableDate;
+
+    @FXML
+    private TableColumn<?, ?> lichSostavTableName;
+
+    @FXML
+    private TableColumn<?, ?> lichSostavTableDesc;
+
+    @FXML
+    private TextField lichSostavInputPoisk;
+
+    @FXML
+    private Button lichSostavPoiskBtn;
+
+    @FXML
+    private TableView<TableClass> proizvodTable;
+
+    @FXML
+    private TableColumn<?, ?> proizvodTableDate;
+
+    @FXML
+    private TableColumn<?, ?> proizvodTableName;
+
+    @FXML
+    private TableColumn<?, ?> proizvodTableDesc;
+
+    @FXML
+    private TextField proizvodInputPosik;
+
+    @FXML
+    private Button proizvodPoiskBtn;
+
+    @FXML
+    private Button komandirovkiEditFileBtn;
+
+    @FXML
+    private Button komandirovkiSaveChangesBtn;
+
+    @FXML
+    private ComboBox<String> komandirovkiCmbBox;
+
+    @FXML
+    private TextField komandirovkiInputEditName;
+
+    @FXML
+    private Button btnZhurnalPrikazy;
+
+    @FXML
+    private AnchorPane zhurnalPrikazyAP;
+
+    @FXML
+    private AnchorPane zhurnalPrikazyAP1;
+
+    @FXML
+    private TabPane zhurnalTabpane;
+
+    @FXML
+    private Label logEmplLblEmployees;
+
+    @FXML
+    private AnchorPane zhurnalPrikPustyshkaAp;
+
+    @FXML
+    private AnchorPane zhurnalPrikEditAp;
+
+    @FXML
+    private TextArea description;
+
+    @FXML
+    private Label amountSymbolLbl;
 
 
     private static File tempFile;
@@ -367,16 +442,15 @@ public class MainMenuController implements Initializable {
     private TableClass tempEdit;
     private FileSaver fileSaverAdd;
     private ArrayList<TableClass> tableClasses;
-    private FileSaver fileSaver;
     private final String filePath = new File("").getAbsolutePath();
-    ;
     private static TableClass tempDelete;
     private ArrayList<TableClassBackUp> tableClassBackUps;
-    TableClassBackUp tempBackUP;
-    ObservableList<String> entries;
-    int count = 0;
-    //ArrayList<TableClassNewFile> tableClassNewFileArrayList = new ArrayList<>();
-    HashSet<TableClassNewFile> tableClassNewFileArrayList = new HashSet<>();
+    private ObservableList<String> entries;
+    private int count = 0;
+    private HashSet<TableClassNewFile> tableClassNewFileArrayList = new HashSet<>();
+    private FileSaver fileSaverEditPrikazy = new FileSaver();
+    private TableClassBackUp tempBackUp;
+
 
     public void search(String oldVal, String newVal) {
         if (oldVal != null && (newVal.length() < oldVal.length())) {
@@ -404,10 +478,13 @@ public class MainMenuController implements Initializable {
 
 
     public void eraiseLabel() {
-
         errorLblPoisk.setText("");
         errorLblAccess.setText("");
         createNameLbl.setText("");
+        description.setText("");
+        komandirovkiInputEditName.setText("");
+        createInputName.setText("");
+        zhurnalPrikPustyshkaAp.toFront();
     }
 
 
@@ -439,12 +516,12 @@ public class MainMenuController implements Initializable {
         File dir5 = new File(path5);
         File dir6 = new File(path6);
 
-        File[] arrFiles1 = dir1.listFiles();
-        File[] arrFiles2 = dir2.listFiles();
-        File[] arrFiles3 = dir3.listFiles();
-        File[] arrFiles4 = dir4.listFiles();
-        File[] arrFiles5 = dir5.listFiles();
-        File[] arrFiles6 = dir6.listFiles();
+        File[] arrFiles1;
+        File[] arrFiles2;
+        File[] arrFiles3;
+        File[] arrFiles4;
+        File[] arrFiles5;
+        File[] arrFiles6;
 
         if (dir1.exists()) {
             arrFiles1 = dir1.listFiles();
@@ -484,6 +561,23 @@ public class MainMenuController implements Initializable {
         }
 
 
+        return fileSavers;
+    }
+
+
+    public ArrayList<FileSaver> getFileMethodType(String type) {
+
+        ArrayList<FileSaver> fileSavers = new ArrayList<>();
+        String path1 = filePath + "\\tempFileType" + type;
+        File dir1 = new File(path1);
+        File[] arrFiles1;
+
+        if (dir1.exists()) {
+            arrFiles1 = dir1.listFiles();
+            for (int i = 0; i < Objects.requireNonNull(arrFiles1).length; i++) {
+                fileSavers.add(new FileSaver("Внутренние Документы", arrFiles1[i].getName(), arrFiles1[i]));
+            }
+        }
         return fileSavers;
     }
 
@@ -567,16 +661,36 @@ public class MainMenuController implements Initializable {
                 }
             }
 
-
-            if (logKomucol.equals(" ")) {
-                int size = all.lastIndexOf(",");
-                all.deleteCharAt(size);
-                tableClassBackUps.add(new TableClassBackUp(backUp.getId(), count, fileSaver.getName(), backUp.getAction1(),
-                        kto_sdelal.getSurname() + " " + kto_sdelal.getName(), all.toString(), backUp.getDate().toString(), backUp.getFiles_id(), backUp.getKomu_sdelali_employeeId()));
-            } else {
-                tableClassBackUps.add(new TableClassBackUp(backUp.getId(), count, fileSaver.getName(), backUp.getAction1(),
-                        kto_sdelal.getSurname() + " " + kto_sdelal.getName(), logKomucol, backUp.getDate().toString(), backUp.getFiles_id(), backUp.getKomu_sdelali_employeeId()));
+            switch (logComboPoisk.getValue()) {
+                case "Наименование файла":
+                    if (!logInputPoisk.getText().isEmpty()) {
+                        if (fileSaver.getName().toLowerCase().contains(logInputPoisk.getText().toLowerCase())) {
+                            ifForLogInputSearch(count, backUp, all, fileSaver, kto_sdelal, logKomucol);
+                        }
+                    }
+                    else {
+                        ifForLogInputSearch(count, backUp, all, fileSaver, kto_sdelal, logKomucol); }
+                    break;
+                case "Кто сделал изменения":
+                    if (!logInputPoisk.getText().isEmpty()) {
+                        String s1 = kto_sdelal.getSurname()+kto_sdelal.getName();
+                        if (s1.toLowerCase().contains(logInputPoisk.getText().toLowerCase())) {
+                            ifForLogInputSearch(count, backUp, all, fileSaver, kto_sdelal, logKomucol);
+                        }
+                    } else {
+                        ifForLogInputSearch(count, backUp, all, fileSaver, kto_sdelal, logKomucol); }
+                    break;
+                case "Кому сделали изменения":
+                    if (!logInputPoisk.getText().isEmpty()) {
+                        String s1 = (logKomucol +all).replace(" ", "");
+                        if (s1.toLowerCase().contains(logInputPoisk.getText().toLowerCase())) {
+                            ifForLogInputSearch(count, backUp, all, fileSaver, kto_sdelal, logKomucol);
+                        }
+                    } else {
+                        ifForLogInputSearch(count, backUp, all, fileSaver, kto_sdelal, logKomucol); }
+                    break;
             }
+
             count++;
         }
 
@@ -588,10 +702,24 @@ public class MainMenuController implements Initializable {
         logActonCol.setCellValueFactory(new PropertyValueFactory<>("logActonCol"));
         logKtoCol.setCellValueFactory(new PropertyValueFactory<>("logKtoCol"));
         logKomuCol.setCellValueFactory(new PropertyValueFactory<>("logKomuCol"));
-
         logDateCol.setCellValueFactory(new PropertyValueFactory<>("logDate"));
 
         logTable.setItems(observableList1);
+    }
+
+
+    private void ifForLogInputSearch(int count, BackUpFile backUp, StringBuilder all, FileSaver fileSaver, Employee kto_sdelal, String logKomucol) {
+        if (logKomucol.equals(" ")) {
+            int size = all.lastIndexOf(",");
+            all.deleteCharAt(size);
+            tableClassBackUps.add(new TableClassBackUp(backUp.getId(), count, fileSaver.getName(), backUp.getAction1(),
+                    kto_sdelal.getSurname() + " " + kto_sdelal.getName(), all.toString(), backUp.getDate().toString(),
+                    backUp.getFiles_id(), backUp.getKomu_sdelali_employeeId()));
+        } else {
+            tableClassBackUps.add(new TableClassBackUp(backUp.getId(), count, fileSaver.getName(), backUp.getAction1(),
+                    kto_sdelal.getSurname() + " " + kto_sdelal.getName(), logKomucol, backUp.getDate().toString(),
+                    backUp.getFiles_id(), backUp.getKomu_sdelali_employeeId()));
+        }
     }
 
 
@@ -599,7 +727,6 @@ public class MainMenuController implements Initializable {
         createTableEmpl.getItems().clear();
         //Collections.copy(tempArray, tableClassNewFileArrayList);
         ArrayList<TableClassNewFile> tempArray = new ArrayList<>(tableClassNewFileArrayList);
-
 
         ObservableList<TableClassNewFile> observableListNewfile = FXCollections.observableList(
                 tempArray
@@ -610,21 +737,173 @@ public class MainMenuController implements Initializable {
         createTableColName.setCellValueFactory(new PropertyValueFactory<>("name"));
         createTableColMName.setCellValueFactory(new PropertyValueFactory<>("middle_name"));
         createTableEmpl.setItems(observableListNewfile);
+    }
 
 
+    public void refreshkomandirovkiTable(){
+        komandirovkiTable.getItems().clear();
+        ArrayList<TableClass> tableClassKomandirovki = new ArrayList<>();
+        ArrayList<FileSaver> fileSavers1 = Main.getFilesKomand("Командировки");
+        //ArrayList<FileSaver> fileSavers = getFileMethodType("Командировки");
+
+        if (!komandirovkiInputPoisk.getText().isEmpty()){
+            for (FileSaver saver : fileSavers1) {
+                if (saver.getName().contains(komandirovkiInputPoisk.getText())) {
+                    tableClassKomandirovki.add(new TableClass(saver.getName(), saver.getDesc(), saver.getDateTime(), saver.getId()));
+                }
+
+            }
+        }
+        else {
+            for (FileSaver saver : fileSavers1) {
+                    tableClassKomandirovki.add(new TableClass(saver.getName(), saver.getDesc(), saver.getDateTime(), saver.getId()));
+            }
+        }
+
+
+        ObservableList<TableClass> observableList1 = FXCollections.observableList(
+                tableClassKomandirovki
+        );
+
+        komandirovkiTableDate.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
+        komandirovkiTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        komandirovkiTableDesc.setCellValueFactory(new PropertyValueFactory<>("desc"));
+
+
+        komandirovkiTable.setItems(observableList1);
+    }
+
+
+    public void refreshLsTable(){
+        lichSostavTable.getItems().clear();
+        ArrayList<TableClass> tableClassLS = new ArrayList<>();
+        ArrayList<FileSaver> fileSavers1 = Main.getFilesKomand("Личный состав");
+        //ArrayList<FileSaver> fileSavers = getFileMethodType("Командировки");
+
+        if (!lichSostavInputPoisk.getText().isEmpty()){
+            for (FileSaver saver : fileSavers1) {
+                if (saver.getName().contains(lichSostavInputPoisk.getText())) {
+                    tableClassLS.add(new TableClass(saver.getName(), saver.getDesc(), saver.getDateTime(), saver.getId()));
+                }
+
+            }
+        }
+        else {
+            for (FileSaver saver : fileSavers1) {
+                tableClassLS.add(new TableClass(saver.getName(), saver.getDesc(), saver.getDateTime(), saver.getId()));
+            }
+        }
+
+
+        ObservableList<TableClass> observableList1 = FXCollections.observableList(
+                tableClassLS
+        );
+
+        lichSostavTableDate.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
+        lichSostavTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        lichSostavTableDesc.setCellValueFactory(new PropertyValueFactory<>("desc"));
+
+        lichSostavTable.setItems(observableList1);
+    }
+
+
+    public void refreshtableProizvodstvo(){
+        proizvodTable.getItems().clear();
+        ArrayList<TableClass> tableClassProizvodstvo = new ArrayList<>();
+        ArrayList<FileSaver> fileSavers1 = Main.getFilesKomand("Производство");
+
+        if (!proizvodInputPosik.getText().isEmpty()){
+            for (FileSaver saver : fileSavers1) {
+                if (saver.getName().contains(proizvodInputPosik.getText())) {
+                    tableClassProizvodstvo.add(new TableClass(saver.getName(), saver.getDesc(), saver.getDateTime(), saver.getId()));
+                }
+            }
+        }
+        else {
+            for (FileSaver saver : fileSavers1) {
+                tableClassProizvodstvo.add(new TableClass(saver.getName(), saver.getDesc(), saver.getDateTime(), saver.getId()));
+            }
+        }
+
+        ObservableList<TableClass> observableList1 = FXCollections.observableList(
+                tableClassProizvodstvo
+        );
+
+        proizvodTableDate.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
+        proizvodTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        proizvodTableDesc.setCellValueFactory(new PropertyValueFactory<>("desc"));
+
+        proizvodTable.setItems(observableList1);
+    }
+
+
+    public void doubleClicksListener(TableView<TableClass> tableView) {
+        tableView.setRowFactory(tv -> {
+            TableRow<TableClass> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    TableClass rowData = row.getItem();
+                    komandirovkiInputEditName.setText(rowData.getName());
+                    fileSaverEditPrikazy = Main.getOneFileMethod(rowData.getId());
+                    zhurnalPrikEditAp.toFront();
+                    try {
+                        Files.write(Path.of(filePath + "\\tempFileType\\" +
+
+                                        fileSaverEditPrikazy.getName()),
+                                fileSaverEditPrikazy.getFileBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    komandirovkiCmbBox.setValue(fileSaverEditPrikazy.getType());
+
+                }
+            });
+            return row;
+        });
+
+    }
+
+
+    public void showNoteSuccess(String path) throws IOException {
+        Parent settingsParent = FXMLLoader.load(this.getClass().getResource(path));
+        Scene settingsScene = new Scene(settingsParent);
+        Stage popup = new Stage();
+        popup.setScene(settingsScene);
+        popup.setTitle("Уведомление");
+        popup.initModality(Modality.WINDOW_MODAL);
+        popup.initStyle(StageStyle.TRANSPARENT);
+        popup.initOwner(createSaveFileBtn.getScene().getWindow());
+        popup.show();
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<String> spisok2 = FXCollections.observableArrayList("Внутренние Документы", "Командировки",
+                "Корреспонденция Вход", "Корреспонденция Исход",
+                "Личный Состав", "Производство");
+        editComboBox.setItems(spisok2);
+
+        final int MAX_CHARS = 200;
+        description.setTextFormatter(new TextFormatter<String>(change ->
+                change.getControlNewText().length() <= MAX_CHARS ? change : null));
+        description.textProperty().addListener((ObservableValue<? extends String> obs, String oVal, String nVal) -> {
+
+            String prevText = description.getText();
+            int inputLength = prevText.length();
+            String s = inputLength + " / 200";
+            amountSymbolLbl.setText(s);
+        });
+
         Employee employee = SaverProfile.getProfile();
         lblUserProfile.setText(employee.getSurname() + " " + employee.getName());
         PersonalSurname.setText("");
 
         ObservableList<String> tempComboBx = FXCollections.observableArrayList("Командировки", "Личный состав",
-                "Корреспонденция Вход", "Корреспонденция Исход", "Внутренние документы");
-        createTemplateCmbBox.setValue(tempComboBx.get(0));
+                "Корреспонденция Вход", "Корреспонденция Исход", "Внутренние документы", "Производство");
         createTemplateCmbBox.setItems(tempComboBx);
+        createTemplateCmbBox.setValue("Командировки");
 
 
         ArrayList<Employee> employees = Main.getEmployeesMethod();
@@ -642,6 +921,38 @@ public class MainMenuController implements Initializable {
             }
         });
 
+        zhurnalTabpane.getSelectionModel().selectedItemProperty().addListener((obs, ov, nv) -> {
+            if (zhurnalTabpane.getSelectionModel().getSelectedIndex() == 0) {
+                refreshkomandirovkiTable();
+            } else if (zhurnalTabpane.getSelectionModel().getSelectedIndex() == 1) {
+                refreshLsTable();
+            } else if (zhurnalTabpane.getSelectionModel().getSelectedIndex() == 2) {
+                refreshtableProizvodstvo();
+            }
+
+        });
+
+
+        logTable.setRowFactory(tv -> {
+            TableRow<TableClassBackUp> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    tempBackUp = row.getItem();
+                    logFileNameLbl.setText(tempBackUp.getLogNameCol());
+                    logEmplLblEmployees.setText(tempBackUp.getLogKomuCol());
+                    logAPDown.toFront();
+                    komandirovkiCmbBox.setValue(fileSaverEditPrikazy.getType());
+                }
+            });
+            return row;
+        });
+        ObservableList<String> tempComboBx1 = FXCollections.observableArrayList("Командировки", "Личный состав", "Производство");
+        komandirovkiCmbBox.setItems(tempComboBx1);
+
+
+        doubleClicksListener(komandirovkiTable);
+        doubleClicksListener(lichSostavTable);
+        doubleClicksListener(proizvodTable);
     }
 
 
@@ -649,18 +960,9 @@ public class MainMenuController implements Initializable {
     public void handleClicks(javafx.event.ActionEvent event) throws IOException {
 
         if (event.getSource() == btnPersonal) {
+            personalDelaAp.toFront();
             pustyshkaAP1.toFront();
-            /*
-            if (PersonalSurname.getText().equals("")) {
-                personalDelaAp.toFront();
-                pustyshkaAP1.toFront();
-            } else {
-                personalDelaAp.toFront();
-                personalDelaAp1.toFront();
-                eraiseLabel();
-            }
-
-             */
+            eraiseLabel();
         }
         else if (event.getSource() == btnZhurnal) {
             eraiseLabel();
@@ -676,7 +978,7 @@ public class MainMenuController implements Initializable {
                 prikazyAp1.toFront();
 
             } else {
-                errorLblAccess.setText("Недостаточно прав !!!");
+                showNoteSuccess("/fxmles/nedostatochnoPravDW.fxml");
             }
         }
         else if (event.getSource() == btnSpravka) {
@@ -699,21 +1001,20 @@ public class MainMenuController implements Initializable {
             }
         }
         else if (event.getSource() == buttonInputPoiskPersonal) {
-            personalDelaAp1.toFront();
+
             eraiseLabel();
             ArrayList<Employee> employees = Main.getEmployeesMethod();
             int check = 0;
             for (Employee employee : employees) {
-                if (employee.getSurname().contains(inputPoiskPersonal.getText())) {
+                if (employee.getSurname().toLowerCase().contains(inputPoiskPersonal.getText().toLowerCase())) {
                     temp = employee;
                     check = 1;
-                    eraseTempFile(temp.getSurname() + temp.getName());
-                    //File t = new File(temp.getSurname()+temp.getName());
-                    //deleteFolder(t);
+                    eraseTempFile(temp.getSurname()+temp.getName());
                     break;
                 }
             }
             if (check == 1) {
+                personalDelaAp1.toFront();
                 allUserData = Main.getUserData(temp.getSurname() + temp.getName(), temp.getId());
 
                 byte[] imageByteArray = allUserData.getImage();
@@ -744,21 +1045,19 @@ public class MainMenuController implements Initializable {
         }
         else if (event.getSource() == personalBtnEdit) {
             eraiseLabel();
-            tempEdit = tablePersonal.getSelectionModel().getSelectedItem();
-            file = tempEdit.getFile();
-            inputEditFileName.setText(tempEdit.getName());
-
-            ObservableList<String> spisok2 = FXCollections.observableArrayList("Внутренние Документы", "Командировки",
-                    "Корреспонденция Вход", "Корреспонденция Исход",
-                    "Личный Состав", "Производство");
-            editComboBox.setValue(tempEdit.getType());
-            editComboBox.setItems(spisok2);
-            PersonalAPedit.toFront();
-
+            TableClass tableClass = tablePersonal.getSelectionModel().getSelectedItem();
+            if(tableClass != null) {
+                tempEdit= tableClass;
+                file = tempEdit.getFile();
+                inputEditFileName.setText(tempEdit.getName());
+                editComboBox.setValue(tempEdit.getType());
+                PersonalAPedit.toFront();
+            }
         }
         else if (event.getSource() == buttonEditFile) {
             openFile(file);
-        } else if (event.getSource() == buttonEditSave) {
+        }
+        else if (event.getSource() == buttonEditSave) {
             eraiseLabel();
             int id = 0;
             for (TableClass table : tableClasses)
@@ -766,7 +1065,7 @@ public class MainMenuController implements Initializable {
                     id = table.getId();
                 }
 
-            fileSaver = new FileSaver(editComboBox.getValue(),
+            FileSaver fileSaver = new FileSaver(editComboBox.getValue(),
                     tempEdit.getType(),
                     inputEditFileName.getText(),
                     tempEdit.getName(),
@@ -808,7 +1107,8 @@ public class MainMenuController implements Initializable {
                 //openFile(file);
             }
 
-        } else if (event.getSource() == addBtnHide) {
+        }
+        else if (event.getSource() == addBtnHide) {
             PersonalAPpustyshka.toFront();
         }
         else if (event.getSource() == editBtnHide) {
@@ -824,10 +1124,13 @@ public class MainMenuController implements Initializable {
             PersonalAPpustyshka.toFront();
         }
         else if (event.getSource() == personalBtnDelete) {
-            PersonalAPDelete.toFront();
-            tempDelete = tablePersonal.getSelectionModel().getSelectedItem();
-            deleteFileName.setText(tempDelete.getName());
-            deleteFileType.setText(tempDelete.getType());
+            TableClass tableClass = tablePersonal.getSelectionModel().getSelectedItem();
+            if(tableClass != null) {
+                tempDelete = tableClass;
+                deleteFileName.setText(tempDelete.getName());
+                deleteFileType.setText(tempDelete.getType());
+                PersonalAPDelete.toFront();
+            }
         }
         else if (event.getSource() == deleteBtn) {
             File del = new File(filePath + "\\tempFile\\" + temp.getSurname() + temp.getName() + "\\" + tempDelete.getType() + "\\" + tempDelete.getName());
@@ -863,23 +1166,13 @@ public class MainMenuController implements Initializable {
                 Stage popup = new Stage();
                 popup.setScene(settingsScene);
                 popup.setTitle("Смена пароля");
-                popup.initModality(Modality.WINDOW_MODAL);
                 popup.initOwner(changePassBtn.getScene().getWindow());
                 popup.show();
             }
 
         }
-        else if (event.getSource() == logChooseBtn) {
-            tempBackUP = logTable.getSelectionModel().getSelectedItem();
-            logFileNameLbl.setText(tempBackUP.getLogNameCol());
-            ObservableList<String> spisokLog = FXCollections.observableArrayList(tempBackUP.getLogKomuCol());
-            logEmplCmbBox.setValue(spisokLog.get(0));
-            logEmplCmbBox.setItems(spisokLog);
-            logAPDown.toFront();
-
-        }
         else if (event.getSource() == logRepairBtn) {
-            TableClassBackUp tempBackUp = logTable.getSelectionModel().getSelectedItem();
+
             if (tempBackUp.getKomu_id() != 0) {
                 Main.deleteBackUp(tempBackUp.getId(), tempBackUp.getFile_id(), tempBackUp.getKomu_id());
             } else {
@@ -899,31 +1192,32 @@ public class MainMenuController implements Initializable {
         }
         else if (event.getSource() == createInputNameBtn) {
             String filePath = new File("").getAbsolutePath();
-            String s = filePath + "\\newFiles\\" + createInputName.getText() + ".docx";
-            tempFile = new File(s);
+            if (!createInputName.getText().isEmpty()) {
+                String s = filePath + "\\newFiles\\" + createInputName.getText() + ".docx";
+                tempFile = new File(s);
 
-            switch (createTemplateCmbBox.getValue()) {
-                case "Командировки":
-                    String pathKm = filePath + "\\templates\\" + "Командировки.docx";
-                    Files.copy(Path.of(pathKm), tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                case "Личный состав":
-                    String pathLs = filePath + "\\templates\\" + "ЛичныйСостав.docx";
-                    Files.copy(Path.of(pathLs), tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                case "Корреспонденция Вход":
-                    String pathKv = filePath + "\\templates\\" + "КорреспонденцияВход.docx";
-                    Files.copy(Path.of(pathKv), tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                case "Корреспонденция Исход":
-                    String pathKi = filePath + "\\templates\\" + "КорреспонденцияИсход.docx";
-                    Files.copy(Path.of(pathKi), tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                case "Внутренние документы":
-                    String pathVd = filePath + "\\templates\\" + "ВнутренниеДокументы.docx";
-                    Files.copy(Path.of(pathVd), tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                    createNameLbl.setText(tempFile.getName());
+                switch (createTemplateCmbBox.getValue()) {
+                    case "Командировки":
+                        String pathKm = filePath + "\\templates\\" + "Командировки.docx";
+                        Files.copy(Path.of(pathKm), tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    case "Личный состав":
+                        String pathLs = filePath + "\\templates\\" + "ЛичныйСостав.docx";
+                        Files.copy(Path.of(pathLs), tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    case "Корреспонденция Вход":
+                        String pathKv = filePath + "\\templates\\" + "КорреспонденцияВход.docx";
+                        Files.copy(Path.of(pathKv), tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    case "Корреспонденция Исход":
+                        String pathKi = filePath + "\\templates\\" + "КорреспонденцияИсход.docx";
+                        Files.copy(Path.of(pathKi), tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    case "Внутренние документы":
+                        String pathVd = filePath + "\\templates\\" + "ВнутренниеДокументы.docx";
+                        Files.copy(Path.of(pathVd), tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        createNameLbl.setText(tempFile.getName());
+                }
+
+                createEditFileAP.toFront();
+                createProgressBar.setProgress(0.5);
             }
-
-            createEditFileAP.toFront();
-            createProgressBar.setProgress(0.5);
-
 
         }
         else if (event.getSource() == createEditFileBtn) {
@@ -944,21 +1238,27 @@ public class MainMenuController implements Initializable {
                 int id = Integer.parseInt(idStr);
                 Employee employee = Main.getOneEmployeeMethod(id);
 
-                //сделать чтоб добавляло тлько уникальные значения
-                tableClassNewFileArrayList.add(new TableClassNewFile(count, employee.getId(), employee.getName(), employee.getMiddle_name(), employee.getSurname()));
-                System.out.println(tableClassNewFileArrayList.size());
-                refreshTableNewFile();
+                int check = 0;
 
+                for (TableClassNewFile i : tableClassNewFileArrayList) {
+                    if (i.getId() == employee.getId()) {
+                        count--;
+                        check = 1;
+                        break;
+                    }
+                }
+                if (check == 0) {
+                    tableClassNewFileArrayList.add(new TableClassNewFile(count, employee.getId(), employee.getName(), employee.getMiddle_name(), employee.getSurname()));
+                    refreshTableNewFile();
+                }
             }
-
-
         }
         else if (event.getSource() == createSaveFileBtn) {
             createApNext.toBack();
-            //System.out.println(tempFile.getName());
+
 
             byte[] fileByte = Files.readAllBytes(Path.of(tempFile.getAbsolutePath()));
-            FileSaver fileSaver = new FileSaver(createTemplateCmbBox.getValue(), tempFile.getName(), fileByte);
+            FileSaver fileSaver = new FileSaver(createTemplateCmbBox.getValue(), tempFile.getName(), fileByte, description.getText());
             ArrayList<Employee> employees = Main.getEmployeesMethod();
             ArrayList<Employee> employeesSave = new ArrayList<>();
             for (Employee employee : employees) {
@@ -970,20 +1270,14 @@ public class MainMenuController implements Initializable {
             }
             Main.saveFile(fileSaver, employeesSave);
 
-            Parent settingsParent = FXMLLoader.load(this.getClass().getResource("/fxmles/newFileSuccessful.fxml"));
-            Scene settingsScene = new Scene(settingsParent);
-            Stage popup = new Stage();
-            popup.setScene(settingsScene);
-            popup.setTitle("Уведомление");
-            //popup.initModality(Modality.WINDOW_MODAL);
-            popup.initOwner(createSaveFileBtn.getScene().getWindow());
-            popup.show();
+            showNoteSuccess("/fxmles/newFileSuccessful.fxml");
             Files.delete(tempFile.toPath());
             createPustyshkaAP.toFront();
             createProgressBar.setProgress(0.0);
             tableClassNewFileArrayList.clear();
             eraiseLabel();
-        } else if (event.getSource() == createDeleteEmplBtn) {
+        }
+        else if (event.getSource() == createDeleteEmplBtn) {
             TableClassNewFile tempDelCreate = createTableEmpl.getSelectionModel().getSelectedItem();
             tableClassNewFileArrayList.removeIf(ter -> tempDelCreate.getId() == ter.getId());
             refreshTableNewFile();
@@ -1007,8 +1301,55 @@ public class MainMenuController implements Initializable {
         }
         else if (event.getSource() == createAddEmplBackBtn) {
             createEditFileAP.toFront();
+            createApPustyskaEmplTable.toFront();
             createProgressBar.setProgress(0.5);
 
         }
+        else if (event.getSource() == btnZhurnalPrikazy) {
+            eraiseLabel();
+            refreshkomandirovkiTable();
+            zhurnalPrikazyAP1.toFront();
+            zhurnalPrikazyAP.toFront();
+        }
+        else if (event.getSource() == komandirovkiEditFileBtn) {
+            openFile(new File(filePath + "\\tempFileType\\" + fileSaverEditPrikazy.getName()));
+        }
+        else if (event.getSource() == komandirovkiSaveChangesBtn) {
+            if (!komandirovkiInputEditName.getText().equals("")) {
+                FileSaver fileSaverNew = new FileSaver(komandirovkiCmbBox.getValue(),
+                        fileSaverEditPrikazy.getType(),
+                        komandirovkiInputEditName.getText(),
+                        fileSaverEditPrikazy.getName(),
+                        Files.readAllBytes(Path.of(filePath + "\\tempFileType\\" + fileSaverEditPrikazy.getName())),
+                        fileSaverEditPrikazy.getId());
+
+                Main.editFile(fileSaverNew, temp);
+                String delete = filePath + "\\tempFileType\\" + fileSaverEditPrikazy.getName();
+                Files.delete(Path.of(delete));
+
+
+                eraiseLabel();
+                zhurnalPrikPustyshkaAp.toFront();
+                refreshkomandirovkiTable();
+                refreshtableProizvodstvo();
+                refreshLsTable();
+                showNoteSuccess("/fxmles/newFileSuccessful.fxml");
+            }
+        }
+
+        else if (event.getSource() == komandirovkiPoiskBtn) {
+            refreshkomandirovkiTable();
+        }
+        else if (event.getSource() == lichSostavPoiskBtn) {
+            refreshLsTable();
+        }
+        else if (event.getSource() == proizvodPoiskBtn) {
+            refreshtableProizvodstvo();
+        }
+        else if (event.getSource() == logInputPoiskBtn)
+        {
+            refreshTableBackUp();
+        }
+
     }
 }

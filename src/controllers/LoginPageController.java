@@ -2,11 +2,12 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -37,6 +38,8 @@ public class LoginPageController {
     @FXML
     private String password;
 
+
+
     void show1()
     {
         try {
@@ -66,9 +69,11 @@ public class LoginPageController {
             pass_field.setPromptText("Пароль");
         });
 
+        signin_button.setDefaultButton(true);
 
         signin_button.setOnAction(event ->
         {
+
             String pass_f = String.valueOf(pass_field.getText().trim().hashCode());
             String login_f = String.valueOf(login_field.getText());
             int check = 0;
@@ -92,8 +97,8 @@ public class LoginPageController {
                         Stage popup = new Stage();
                         popup.setScene(settingsScene);
                         popup.setTitle("Смена пароля");
+                        popup.initStyle(StageStyle.TRANSPARENT);
                         popup.initModality(Modality.WINDOW_MODAL);
-                        popup.initStyle(StageStyle.TRANSPARENT); //Чтобы не было закрыть свернуть и полный экран
                         popup.initOwner(signin_button.getScene().getWindow());
                         popup.show();
 
@@ -121,4 +126,5 @@ public class LoginPageController {
             }
         });
     }
+
 }
